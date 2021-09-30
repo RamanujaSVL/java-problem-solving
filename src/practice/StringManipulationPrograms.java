@@ -1,13 +1,13 @@
 package practice;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class StringManipulationPrograms {
 
     enum StringOperations{
-        Palindrome, ReverseString
+        Palindrome, ReverseString, RemoveAllDuplicateCharacters,
+        FrequencyOfAllCharacters
     }
 
     private String reverseString(String str){
@@ -38,20 +38,53 @@ public class StringManipulationPrograms {
         }
     }
 
+    //TODO - CHECK FOR BETTER WAYS
+    private void removeDuplicateCharacters(String str){
+        List<Character> charsList = new ArrayList<>();
+
+        for(int i=0;i<str.length();i++) {
+            if(!charsList.contains(str.charAt(i)))
+                charsList.add(str.charAt(i));
+        }
+        System.out.println(charsList.stream().map(Object::toString).collect(Collectors.joining()));
+
+    }
+
+    private void frequencyOfEachCharacter(String str){
+        Map<Character, Integer> frequencyMap = new HashMap<>();
+
+        for(int i=0;i<str.length();i++){
+            Character curr = str.charAt(i);
+
+            /*
+             * Using Lambda Expressions
+             * frequencyMap.computeIfPresent(curr, (key, value) -> value + 1);
+             * frequencyMap.computeIfAbsent(curr, key -> 1);
+             */
+
+            if(frequencyMap.containsKey(curr)){
+                frequencyMap.put(curr, frequencyMap.get(curr)+1);
+            } else {
+                frequencyMap.put(curr,1);
+            }
+        }
+        System.out.println(frequencyMap);
+    }
+
     public static void main(String[] args) {
 
         StringManipulationPrograms program = new StringManipulationPrograms();
 
         int counter = 0;
-        StringOperations opers[] = StringOperations.values();
-        Map<Integer, StringOperations> operationsMap = new HashMap<Integer, StringOperations>();
+        StringOperations[] operations = StringOperations.values();
+        Map<Integer, StringOperations> operationsMap = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Select From the Below Operations");
 
-        for(StringOperations oper : opers){
-            System.out.println(++counter+". "+oper.name());
-            operationsMap.put(counter, oper);
+        for(StringOperations operation : operations){
+            System.out.println(++counter+". "+ operation.name());
+            operationsMap.put(counter, operation);
         }
 
         int chosenOperation = scanner.nextInt();
@@ -65,6 +98,12 @@ public class StringManipulationPrograms {
                 break;
             case ReverseString:
                 program.reverseString(str);
+                break;
+            case RemoveAllDuplicateCharacters:
+                program.removeDuplicateCharacters(str);
+                break;
+            case FrequencyOfAllCharacters:
+                program.frequencyOfEachCharacter(str);
                 break;
         }
     }
