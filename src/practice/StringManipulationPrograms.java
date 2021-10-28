@@ -7,7 +7,7 @@ public class StringManipulationPrograms {
 
     enum StringOperations{
         Palindrome, ReverseString, RemoveAllDuplicateCharacters,
-        FrequencyOfAllCharacters
+        FrequencyOfAllCharacters, Anagrams
     }
 
     private String reverseString(String str){
@@ -71,6 +71,37 @@ public class StringManipulationPrograms {
         System.out.println(frequencyMap);
     }
 
+    private void areStringAnagrams(String str1, String str2) {
+        boolean flag = false;
+        if(str1.length() != str2.length()){
+            flag = false;
+        }
+        else {
+            int[] charRange = new int[256];
+            for(int i=0; i<str1.length(); i++){
+                charRange[str1.charAt(i)]++;
+                charRange[str2.charAt(i)]--;
+            }
+
+            for(int i=0; i<charRange.length; i++){
+                if(charRange[i] != 0) {
+                    flag = false;
+                    break;
+                } else {
+                    flag = true;
+                }
+            }
+        }
+        if(!flag)
+            System.out.println("Not Anagrams");
+        else
+            System.out.println("Anagrams");
+    }
+
+    private static String readString(Scanner sc) {
+        return sc.next();
+    }
+
     public static void main(String[] args) {
 
         StringManipulationPrograms program = new StringManipulationPrograms();
@@ -89,22 +120,29 @@ public class StringManipulationPrograms {
 
         int chosenOperation = scanner.nextInt();
 
-        System.out.println("Enter a String");
-        String str = scanner.next();
+        System.out.println("Enter a word or multiple words with a , delimiter and no spaces");
 
         switch(operationsMap.get(chosenOperation)){
             case Palindrome:
-                program.checkPalindrome(str);
+                program.checkPalindrome(readString(scanner));
                 break;
             case ReverseString:
-                program.reverseString(str);
+                program.reverseString(readString(scanner));
                 break;
             case RemoveAllDuplicateCharacters:
-                program.removeDuplicateCharacters(str);
+                program.removeDuplicateCharacters(readString(scanner));
                 break;
             case FrequencyOfAllCharacters:
-                program.frequencyOfEachCharacter(str);
+                program.frequencyOfEachCharacter(readString(scanner));
                 break;
+            case Anagrams:
+                //TODO - For Reading more than one word with existing approach - could be better
+                String[] twoWords = readString(scanner).split(",");
+
+                String str1 = twoWords[0].toLowerCase();
+                String str2 = twoWords[1].toLowerCase();
+
+                program.areStringAnagrams(str1, str2);
         }
     }
 }
