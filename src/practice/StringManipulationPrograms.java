@@ -7,7 +7,7 @@ public class StringManipulationPrograms {
 
     enum StringOperations{
         Palindrome, ReverseString, RemoveAllDuplicateCharacters,
-        FrequencyOfAllCharacters, Anagrams
+        FrequencyOfAllCharacters, Anagrams, CharacterWithHighestFrequency
     }
 
     private String reverseString(String str){
@@ -98,6 +98,31 @@ public class StringManipulationPrograms {
             System.out.println("Anagrams");
     }
 
+    /*
+    * Date : 31-10-2021
+    * Approach 1 : Taking an Array of integers with ASCII Character range of 256
+    *              and incrementing the respective ASCII character representation
+    *              and returning the index of the integer with highest count, which is the
+    *              character with highest frequency, when casted as a char.
+    *
+    * Approach 2 : Having a HashMap similar to FrequencyOfAllCharacters and returning the
+    *              value of the key with highest value.
+     */
+    private static void characterWithHighestFrequency(String str){
+
+        int[] charRange = new int[256];
+
+        for(int i = 0; i < str.length(); i++){
+            charRange[str.charAt(i)]++;
+        }
+
+        List<Integer> listOfInteger = Arrays.stream(charRange)
+                                            .boxed()
+                                            .collect(Collectors.toList());
+
+        System.out.println((char)listOfInteger.indexOf(Collections.max(listOfInteger)));
+    }
+
     private static String readString(Scanner sc) {
         return sc.next();
     }
@@ -143,6 +168,10 @@ public class StringManipulationPrograms {
                 String str2 = twoWords[1].toLowerCase();
 
                 program.areStringAnagrams(str1, str2);
+                break;
+            case CharacterWithHighestFrequency:
+                characterWithHighestFrequency(readString(scanner));
+                break;
         }
     }
 }
