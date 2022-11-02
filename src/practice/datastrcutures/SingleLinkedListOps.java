@@ -3,7 +3,7 @@ package practice.datastrcutures;
 class Node<T> {
     static int count;
     T data;
-    Node next;
+    Node<T> next;
 
     Node(T t){
         ++count;
@@ -15,44 +15,56 @@ class Node<T> {
 
 public class SingleLinkedListOps<T> {
 
-    Node head;
+    Node<T> head;
 
     SingleLinkedListOps(){
         head = null;
     }
 
 
-    private void addElement(T t) {
+    private void addElement(T data) {
 
-        if (head == null) {
-            head = new Node(t);
+        if (this.head == null) {
+            head = new Node<T>(data);
         } else {
-            Node curr = head;
+            Node<T> curr = this.head;
             while (curr.next != null) {
                 curr = curr.next;
             }
-            curr.next = new Node(t);
+            curr.next = new Node<T>(data);
         }
-
     }
 
+    //TODO - TBD
     private void removeElement(T t) {
-
+        if(this.head == null) {
+            System.out.println("List is empty");
+        } else {
+            Node<T> curr = this.head;
+            while(curr.next != null) {
+                if(curr.data == t) {
+                    curr.data = (T) new Integer(582);
+                }
+            }
+        }
     }
 
     private void printAllNodes() {
-        if(head == null) {
+
+        if(this.head == null) {
             System.out.println("List is empty");
         } else {
-            while(head.next != null) {
-                System.out.print(head.data+"->");
-                head = head.next;
+            Node<T> curr = this.head;
+            while(curr.next != null) {
+                System.out.print(curr.data+"->");
+                curr = curr.next;
             }
-            System.out.println(head.data);
+            System.out.println(curr.data);
         }
 
     }
 
+    @SuppressWarnings("UnnecessaryBoxing")
     public static void main(String[] args) {
 
         SingleLinkedListOps<Integer> list = new SingleLinkedListOps<Integer>();
@@ -69,7 +81,8 @@ public class SingleLinkedListOps<T> {
 
         list.printAllNodes();
 
+        list.removeElement(2);
 
-
+        list.printAllNodes();
     }
 }
