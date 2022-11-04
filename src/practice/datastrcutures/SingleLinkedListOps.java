@@ -35,22 +35,25 @@ public class SingleLinkedListOps<T> {
         }
     }
 
-    //TODO - TBD
-    private void removeElement(T t) {
+    private void removeElement(T data) {
         if(this.head == null) {
             System.out.println("List is empty");
         } else {
             Node<T> curr = this.head;
+            Node<T> prev = this.head;
+
             while(curr.next != null) {
-                if(curr.data == t) {
-                    curr.data = (T) new Integer(582);
+                if(curr.data.equals(data)) {
+                    prev.next = curr.next;
+                    Node.count--;
                 }
+                prev = curr;
+                curr = curr.next;
             }
         }
     }
 
     private void printAllNodes() {
-
         if(this.head == null) {
             System.out.println("List is empty");
         } else {
@@ -61,28 +64,46 @@ public class SingleLinkedListOps<T> {
             }
             System.out.println(curr.data);
         }
+    }
 
+    private void sizeOfTheList() {
+        System.out.println("Size Of LinkedList - "+ Node.count);
     }
 
     @SuppressWarnings("UnnecessaryBoxing")
     public static void main(String[] args) {
 
-        SingleLinkedListOps<Integer> list = new SingleLinkedListOps<Integer>();
+        SingleLinkedListOps<Integer> integerList = new SingleLinkedListOps<>();
+        SingleLinkedListOps<String> stringList = new SingleLinkedListOps<>();
 
-        list.addElement(new Integer(1));
-        list.addElement(new Integer(2));
-        list.addElement(new Integer(3));
-        list.addElement(new Integer(4));
-        list.addElement(new Integer(5));
-        list.addElement(new Integer(6));
-        list.addElement(new Integer(7));
-        list.addElement(new Integer(8));
-        //System.out.println(Node.count);
+        integerList.addElement(new Integer(1));
+        integerList.addElement(new Integer(2));
+        integerList.addElement(new Integer(3));
+        integerList.addElement(new Integer(4));
+        integerList.addElement(new Integer(5));
+        integerList.addElement(new Integer(6));
+        integerList.addElement(new Integer(7));
+        integerList.addElement(new Integer(8));
 
-        list.printAllNodes();
+        integerList.sizeOfTheList();
 
-        list.removeElement(2);
+        integerList.printAllNodes();
 
-        list.printAllNodes();
+        integerList.removeElement(2);
+        integerList.removeElement(5);
+        integerList.removeElement(7);
+
+        integerList.sizeOfTheList();
+
+        integerList.printAllNodes();
+
+        stringList.addElement("A");
+        stringList.addElement("B");
+        stringList.addElement("C");
+        stringList.addElement("D");
+        stringList.addElement("E");
+
+        stringList.printAllNodes();
+
     }
 }
