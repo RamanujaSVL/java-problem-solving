@@ -1,4 +1,4 @@
-package practice;
+package practice.problem_solving.easy;
 
 import java.util.*;
 import java.util.stream.Collectors;
