@@ -19,13 +19,19 @@
         </plugins>
     </build>
     <name>Java-Problem-Solving</name>
-    <description>Practice Problem Solving through Java</description>
+    <description>Practice Problem-Solving through Java</description>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.26</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>
